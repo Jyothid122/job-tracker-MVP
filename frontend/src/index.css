@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide native date picker icon so we can use a custom aligned icon */
+.hide-native-date-icon::-webkit-calendar-picker-indicator {
+  display: none;
+}
+.hide-native-date-icon {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  appearance: none;
+}

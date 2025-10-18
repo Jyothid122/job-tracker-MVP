@@ -1,0 +1,22 @@
+{
+  "name": "temporal-workflows",
+  "version": "1.0.0",
+  "description": "Temporal.io workflows for job tracker",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node worker.js",
+    "dev": "node worker.js"
+  },
+  "dependencies": {
+    "@temporalio/worker": "^1.8.0",
+    "@temporalio/client": "^1.8.0",
+    "@temporalio/workflow": "^1.8.0",
+    "@temporalio/activity": "^1.8.0",
+    "openai": "^6.4.0",
+    "dotenv": "^17.2.3"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
