@@ -1,45 +1,66 @@
 Job Application Tracker
-Overview
+
 A simple MVP to track job applications, generate cover letters using LLM APIs, show reminders before deadlines, and auto-archive overdue applications.
 
 Features
-Add job applications (company, role, description, resume, deadline)
-Update status (Pending, Interview, Offer, Rejected, Withdrawn)
-In-app reminders for overdue applications
-Auto-archive after grace period
-Generate cover letters using AI APIs
-Dashboard showing active, reminder, overdue, and archived applications
-................................................................................................
-Frontend: React, TailwindCSS, React Router
-Backend: Node.js (Express) or serverless functions
-LLM Integration: Gemini / AI SDK
-Workflow: Temporal.io (for reminders & auto-archive)
-Hosting: Vercel 
-.............................................................................................
-Installation
-Clone the repo:
-git clone <your-repo-url>
-cd <repo-folder>
-...............................................................................................
 
-Install dependencies:
+Add job applications: Company, role, description, resume, deadline
+
+Update status: Pending, Interview, Offer, Rejected, Withdrawn
+
+In-app reminders: Highlight overdue applications
+
+Auto-archive: Applications after a grace period
+
+Generate cover letters: Using AI APIs
+
+Dashboard: View active, reminder, overdue, and archived applications
+
+Tech Stack
+
+Frontend: React, TailwindCSS, React Router
+
+Backend: Node.js (Express) or Serverless Functions
+
+LLM Integration: Gemini / AI SDK
+
+Workflow: Temporal.io (reminders & auto-archive)
+
+Hosting: Vercel
+
+Installation
+# Clone the repo
+git clone <repo-url>
+cd <repo-folder>
+
+# Install frontend dependencies
 npm install
-Run the project:
 npm start
-This runs the frontend on http://localhost:3000.
-...........................................................................................
+# Runs frontend on http://localhost:3000
+
+# Backend setup
 cd backend
 npm install
 npm start
 
-Update .env variables as needed.
+# Update .env variables as needed
 
 Usage
 
-Go to http://localhost:3000
+Open the app at http://localhost:3000
 
-Add applications and set deadlines
+Add job applications and set deadlines
 
-Dashboard will show reminders in red for overdue applications and auto-archive after grace period
+Dashboard shows:
 
-Generate cover letters from the dashboard
+Red reminders for overdue applications
+
+Auto-archive after grace period
+
+Generate cover letters directly from the dashboard
+
+Notes
+
+Keep your .env updated with API keys for LLM integration.
+
+The dashboard color-codes applications by status for easy tracking.
