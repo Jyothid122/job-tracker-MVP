@@ -60,9 +60,9 @@ export default function Dashboard({ applications, setApplications }) {
   const archivedApps = appsState.filter((app) => app.archived);
   const displayedApps = showArchived ? archivedApps : activeApps;
 
+  // Generate cover letter (LLM API / Temporal workflow)
   const handleGenerateCoverLetter = async (app) => {
     setLoadingId(app.id);
-
     try {
       const response = await fetch("http://localhost:5000/generate-cover-letter", {
         method: "POST",
@@ -77,7 +77,6 @@ export default function Dashboard({ applications, setApplications }) {
       console.error(err);
       alert("Failed to generate cover letter");
     }
-
     setLoadingId(null);
   };
 
@@ -101,7 +100,7 @@ export default function Dashboard({ applications, setApplications }) {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
             <h1 className="text-3xl font-bold text-dark-gray dark:text-white mb-2">
-              {showArchived ? "Archived Applications" : "Job Applications"}
+              Job Applications Tracker
             </h1>
             <p className="text-gray-600 dark:text-gray-400">
               {showArchived
@@ -117,14 +116,12 @@ export default function Dashboard({ applications, setApplications }) {
               <span className="material-symbols-outlined">add</span>
               Add Application
             </button>
+
             <button
-              className="bg-light-gray dark:bg-gray-800 text-dark-gray dark:text-white px-6 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors font-medium flex items-center justify-center gap-2"
-              onClick={() => setShowArchived((prev) => !prev)}
+              className="bg-gray-200 dark:bg-gray-700 text-dark-gray dark:text-white px-6 py-3 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors font-medium"
+              onClick={() => setShowArchived(!showArchived)}
             >
-              <span className="material-symbols-outlined">
-                {showArchived ? "visibility" : "archive"}
-              </span>
-              {showArchived ? "View Active" : "View Archived"}
+              {showArchived ? "Show Active" : "Show Archived"}
             </button>
           </div>
         </div>
@@ -252,10 +249,37 @@ export default function Dashboard({ applications, setApplications }) {
                         )
                       )}
                     </div>
+
+                    <button
+                      className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                      onClick={() => handleGenerateCoverLetter(app)}
+                    >
+                      {loadingId === app.id ? "Generating..." : "Generate Cover Letter"}
+                    </button>
                   </div>
                 )}
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Modal for Cover Letter */}
+        {showModal && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
+            <div className="bg-white dark:bg-gray-900 rounded-xl p-6 w-11/12 md:w-2/3 lg:w-1/2 shadow-lg">
+              <h2 className="text-xl font-bold text-dark-gray dark:text-white mb-4">
+                Generated Cover Letter
+              </h2>
+              <div className="mb-4 text-gray-700 dark:text-gray-300 whitespace-pre-wrap">
+                {coverLetter}
+              </div>
+              <button
+                className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                onClick={() => setShowModal(false)}
+              >
+                Close
+              </button>
+            </div>
           </div>
         )}
       </div>
