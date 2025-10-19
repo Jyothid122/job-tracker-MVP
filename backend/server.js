@@ -136,11 +136,6 @@ app.get("/workflows", (req, res) => {
   res.json(workflowSystem.getActiveWorkflows());
 });
 
-// --- Local server port ---
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running locally on http://localhost:${PORT}`);
-});
 
 // --- Vercel serverless export ---
 export default app;
