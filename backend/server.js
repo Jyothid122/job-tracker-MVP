@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import OpenAI from "openai";
-import multer from "multer";
+//import multer from "multer";
 import MockWorkflowSystem from "./temporal/mock-workflow.js";
 import getDemoApplications from "./demoData.js";
 
@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 // Use /tmp for serverless file uploads (Vercel)
-const upload = multer({ dest: '/tmp/uploads/' });
+//const upload = multer({ dest: '/tmp/uploads/' });
 
 // In-memory storage
 let applications = [];
