@@ -7,8 +7,8 @@ export default function CoverLetterModal({ app, onClose }) {
 
   useEffect(() => {
     const generate = async () => {
-      try {
-        const { data } = await axios.post("http://localhost:5000/api/generate-cover-letter", {
+      try { const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/applications`, {
+       
           company: app.company,
           role: app.role,
           description: app.description,

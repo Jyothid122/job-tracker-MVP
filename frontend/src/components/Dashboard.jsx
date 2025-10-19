@@ -64,7 +64,7 @@ export default function Dashboard({ applications, setApplications }) {
   const handleGenerateCoverLetter = async (app) => {
     setLoadingId(app.id);
     try {
-      const response = await fetch("http://localhost:5000/generate-cover-letter", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/generate-cover-letter`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ company: app.company, role: app.role }),

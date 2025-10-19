@@ -104,7 +104,6 @@ app.get("/applications/archived", (req, res) => {
   res.json(archived);
 });
 
-// Cover letter generation using LLM (Gemini / AI SDK)
 app.post("/generate-cover-letter", async (req, res) => {
   const { company, role } = req.body;
 
@@ -126,7 +125,6 @@ app.post("/generate-cover-letter", async (req, res) => {
   }
 });
 
-
 // Workflow info
 app.get("/applications/:id/workflow-status", async (req, res) => {
   const { id } = req.params;
@@ -136,6 +134,12 @@ app.get("/applications/:id/workflow-status", async (req, res) => {
 
 app.get("/workflows", (req, res) => {
   res.json(workflowSystem.getActiveWorkflows());
+});
+
+// --- Local server port ---
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running locally on http://localhost:${PORT}`);
 });
 
 // --- Vercel serverless export ---
