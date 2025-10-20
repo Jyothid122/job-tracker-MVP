@@ -9,24 +9,21 @@ export async function listApplications() {
   return res.json();
 }
 
-export async function createApplication({ company, role, description, deadline, resume }) {
-  const formData = new FormData();
-  formData.append("company", company);
-  formData.append("role", role);
-  formData.append("description", description);
-  formData.append("deadline", deadline);
-  if (resume) formData.append("resume", resume);
-
+export async function createApplication({ company, role, description, deadline }) {
   const res = await fetch(`${BASE_URL}/applications`, {
     method: "POST",
-    body: formData,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ company, role, description, deadline }),
   });
+
   if (!res.ok) {
     const text = await safeReadText(res);
     throw new Error(`Create failed (${res.status}): ${text}`);
   }
+
   return res.json();
 }
+
 
 export async function updateApplicationStatus({ id, status }) {
   const res = await fetch(`${BASE_URL}/applications/${id}/status`, {
