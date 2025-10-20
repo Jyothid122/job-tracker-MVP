@@ -102,49 +102,25 @@ app.get("/api/applications/archived", (req, res) => {
 app.post("/api/generate-cover-letter", async (req, res) => {
   const { company, role } = req.body;
 
-  // Validate input
-  if (!company || !role) {
-    return res.status(400).json({ error: "Both 'company' and 'role' are required." });
-  }
-
   try {
-    // Call LLM
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
       messages: [
-        {
-          role: "system",
-          content: "You are a professional assistant who writes concise, professional cover letters.",
-        },
-        {
-          role: "user",
-          content: `Write a professional cover letter for the role of ${role} at ${company}.`,
-        },
+        { role: "system", content: "You are a professional assistant who writes concise, professional cover letters." },
+        { role: "user", content: `Write a professional cover letter for the role of ${role} at ${company}.` },
       ],
       max_tokens: 350,
     });
 
-    // Extract and trim the generated cover letter
-    const coverLetter = response.choices?.[0]?.message?.content?.trim();
-
-    if (!coverLetter) {
-      throw new Error("LLM returned empty content");
-    }
-
-    // Return successful response
-    return res.status(200).json({ coverLetter });
+    const coverLetter = response.choices?.[0]?.message?.content ?? "";
+    res.json({ coverLetter });
   } catch (err) {
-    // Log full error for debugging
-    console.error("LLM API failed:", err);
-
-    // Return fallback with error info
-    return res.status(500).json({
+    console.error("LLM API failed:", err.message);
+    res.json({
       coverLetter: `Dear Hiring Manager at ${company},\n\nI am excited to apply for the role of ${role}. Best regards, [Team]`,
-      error: err.message,
     });
   }
 });
-
 
 // Workflow info
 app.get("/api/applications/:id/workflow-status", async (req, res) => {
